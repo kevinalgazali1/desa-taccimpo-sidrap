@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beranda - Desa Taccimpo</title>
+    <meta
+      name="description"
+      content="Website resmi Desa Taccimpo, Kecamatan Duapitue, Kabupaten Sidenreng Rappang. Temukan informasi seputar sejarah, statistik penduduk, sumber daya desa, dan layanan lainnya."
+    />
+    <meta
+      name="keywords"
+      content="Desa Taccimpo, Desa di Sidenreng Rappang, Kecamatan Duapitue, Desa Sulawesi Selatan, Pemerintahan Desa, Statistik Penduduk, Sejarah Desa, Peta Wilayah"
+    />
+    <meta name="author" content="Pemerintah Desa Taccimpo" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              "fade-in-up": "fadeInUp 0.8s ease-out",
+              "fade-in-left": "fadeInLeft 0.8s ease-out",
+              "fade-in-right": "fadeInRight 0.8s ease-out",
+              "bounce-slow": "bounce 3s infinite",
+              marquee: "marquee 20s linear infinite",
+              "pulse-glow": "pulseGlow 2s ease-in-out infinite alternate",
+              float: "float 3s ease-in-out infinite",
+              gradient: "gradient 6s ease infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        100% {
+          box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes gradient {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .hero-overlay {
+        background: linear-gradient(
+          135deg,
+          rgba(30, 58, 138, 0.8) 0%,
+          rgba(59, 130, 246, 0.6) 50%,
+          rgba(147, 197, 253, 0.4) 100%
+        );
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .gradient-bg {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradient 6s ease infinite;
+      }
+
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .parallax {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      /* Intersection Observer styles */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Navbar styles - perbaikan utama */
+      .navbar-scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-scrolled a {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled button {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled svg {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled .mobile-menu {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans antialiased bg-gray-50">
+    <header
+      x-data="{ 
+        open: false, 
+        scrolled: false,
+        init() {
+          window.addEventListener('scroll', () => {
+            this.scrolled = window.scrollY > 50;
+          });
+        }
+      }"
+      :class="scrolled ? 'navbar-scrolled' : ''"
+      class="fixed top-0 w-full z-50 transition-all duration-300"
+    >
+      <div
+        class="max-w-7xl mx-auto flex items-center justify-between md:justify-center p-4"
+      >
+        <!-- Desktop nav -->
+        <nav class="space-x-6 hidden md:flex">
+          <a
+            href="index.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Beranda</a
+          >
+          <a
+            href="profil.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Profil Desa</a
+          >
+          <a
+            href="potensi.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Statistik dan Potensi</a
+          >
+          <a
+            href="kontak.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Kontak</a
+          >
+        </nav>
+
+        <!-- Hamburger button (mobile) -->
+        <button
+          @click="open = !open"
+          class="md:hidden flex items-center justify-center space-x-2 focus:outline-none absolute right-4 z-60"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white transition-colors duration-200"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              x-show="!open"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+            <path
+              x-show="open"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          <span class="text-white font-medium">Menu</span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        x-show="open"
+        @click.outside="open = false"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 transform -translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform -translate-y-2"
+        class="absolute top-full left-0 w-full mobile-menu shadow-lg md:hidden"
+        :class="scrolled ? 'bg-white/95' : 'bg-black/20'"
+        style="backdrop-filter: blur(10px)"
+      >
+        <nav class="flex flex-col items-center space-y-4 p-6">
+          <a
+            href="index.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Beranda</a
+          >
+          <a
+            href="profil.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Profil Desa</a
+          >
+          <a
+            href="potensi.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Statistik dan Potensi</a
+          >
+          <a
+            href="kontak.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Kontak</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen overflow-hidden">
+      <!-- Background -->
+      <div
+        class="absolute z-10 inset-0 parallax w-full h-full"
+        style="background-image: url('/images/kantor.jpeg')"
+      >
+        <div class="hero-overlay absolute inset-0"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div
+        class="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4"
+      >
+        <!-- Logo -->
+        <div class="animate-float mb-6">
+          <div
+            class="w-150 h-150 bg-white rounded-full flex items-center justify-center shadow-2xl animate-pulse-glow"
+          >
+            <img src="/images/logo.png" alt="Logo Desa" class="h-25 w-20" />
+          </div>
+        </div>
+
+        <!-- Judul -->
+        <h1
+          class="text-6xl font-bold mb-4 text-shadow animate-fade-in-up"
+          style="animation-delay: 0.2s"
+        >
+          Desa Taccimpo
+        </h1>
+
+        <!-- Subtitle  -->
+        <div
+          class="glass-effect rounded-2xl px-8 py-4 mb-8 animate-fade-in-up"
+          style="animation-delay: 0.4s"
+        >
+          <p class="text-xl font-medium">
+            Kecamatan Duapitue, Kabupaten Sidenreng Rappang, Provinsi Sulawesi
+            Selatan
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="relative">
+      <!-- Sejarah -->
+      <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+          <!-- Section Header -->
+          <div class="text-center mb-16 fade-in">
+            <h2 class="text-5xl font-bold text-gray-800 mb-6">
+              Sejarah Singkat Desa Taccimpo
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"
+            ></div>
+          </div>
+
+          <!-- Story Cards -->
+          <div class="grid lg:grid-cols gap-12">
+            <!-- Card 1 -->
+            <div
+              class="card-hover bg-white rounded-3xl shadow-xl p-8 max-w-4xl mx-auto fade-in hover:shadow-2xl transition-shadow duration-300"
+            >
+              <div class="text-gray-700 leading-relaxed">
+                <p class="mb-4">
+                  Desa Taccimpo adalah salah satu desa di Kecamatan Dua Pitue,
+                  Kabupaten Sidenreng Rappang, yang terdiri dari Dusun Kampung
+                  Baru dan Dusun Amessangeng. Dikenal dengan hamparan persawahan
+                  yang subur, kekayaan sumber daya alam, dan masyarakat yang
+                  menjunjung tinggi kebersamaan, Desa Taccimpo terus berkembang
+                  melalui pelayanan pemerintahan yang dekat dengan warga dan
+                  pembangunan yang berkelanjutan.
+                </p>
+                <a
+                  href="profil.html"
+                  class="inline-block bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-800 transition-colors duration-200"
+                >
+                  Baca Selengkapnya →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Peta dan Tabel  -->
+      <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="text-center mb-16 fade-in">
+            <h2 class="text-5xl font-bold text-gray-800 mb-6">
+              Peta Wilayah & Batas Wilayah
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-600 mx-auto rounded-full"
+            ></div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Peta -->
+            <div
+              class="card-hover bg-white rounded-3xl shadow-2xl p-8 fade-in max-w-2xl mx-auto"
+            >
+              <div class="text-center mb-8">
+                <div
+                  class="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">
+                  Peta Wilayah Desa
+                </h3>
+              </div>
+              <div class="relative group">
+                <div
+                  class="bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl p-1"
+                >
+                  <div class="bg-white rounded-2xl p-6">
+                    <div class="w-full rounded-xl overflow-hidden">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d157141.215485606!2d120.0101125!3d-3.8873549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d95d17aded44909%3A0xc374c426ac12d5cb!2sTaccimpo%2C%20Kec.%20Duapitue%2C%20Kabupaten%20Sidenreng%20Rappang%2C%20Sulawesi%20Selatan!5e1!3m2!1sid!2sid!4v1691790540000!5m2!1sid!2sid"
+                        width="100%"
+                        height="400"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="rounded-lg shadow-md"
+                      ></iframe>
+                    </div>
+                    <div class="text-center mt-4">
+                      <p class="text-gray-500 font-medium">Peta Wilayah Desa</p>
+                      <p class="text-sm text-gray-400">Sumber: Google Maps</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kepala Desa -->
+            <div class="card-hover bg-white rounded-3xl shadow-2xl p-8 fade-in">
+              <div class="text-center mb-8">
+                <div
+                  class="inline-flex items-center justify-center w-16 h-16 bg-blue-500 rounded-full mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">
+                  Batas Wilayah
+                </h3>
+              </div>
+
+              <div class="overflow-hidden rounded-2xl border border-gray-200">
+                <table class="w-full">
+                  <thead
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center"
+                  >
+                    <tr>
+                      <th class="px-6 py-4 text-left font-bold">No.</th>
+                      <th class="px-6 py-4 text-left font-bold">Batas</th>
+                      <th class="px-6 py-4 text-left font-bold">Wilayah</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr class="hover:bg-blue-50 transition-colors duration-200">
+                      <td class="px-6 py-4 font-medium text-gray-900">1</td>
+                      <td class="px-6 py-4 text-gray-700">Utara</td>
+                      <td class="px-6 py-4 text-gray-700">Desa Bila</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">2</td>
+                      <td class="px-6 py-4 text-gray-700">Timur</td>
+                      <td class="px-6 py-4 text-gray-700">Kabupaten Wajo</td>
+                    </tr>
+                    <tr class="hover:bg-blue-50 transition-colors duration-200">
+                      <td class="px-6 py-4 font-medium text-gray-900">3</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        Selatan
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Desa Kalosi</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200 bg-gradient-to-r from-blue-50 to-purple-50"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">4</td>
+                      <td class="px-6 py-4 text-gray-700 font-semibold">
+                        Barat
+                      </td>
+                      <td class="px-6 py-4 text-gray-700 font-semibold">
+                        Desa Bola Bulu
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p>&copy; 2025 Desa Taccimpo. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Intersection Observer Script -->
+    <script>
+      // Intersection Observer untuk animasi fade-in
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe semua elemen dengan class fade-in
+      document.addEventListener("DOMContentLoaded", () => {
+        const fadeElements = document.querySelectorAll(".fade-in");
+        fadeElements.forEach((el) => observer.observe(el));
+      });
+
+      // Smooth scroll untuk internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

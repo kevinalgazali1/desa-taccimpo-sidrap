@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profil - Desa Taccimpo</title>
+    <meta
+      name="description"
+      content="Website resmi Desa Taccimpo, Kecamatan Duapitue, Kabupaten Sidenreng Rappang. Temukan informasi seputar sejarah, statistik penduduk, sumber daya desa, dan layanan lainnya."
+    />
+    <meta
+      name="keywords"
+      content="Desa Taccimpo, Desa di Sidenreng Rappang, Kecamatan Duapitue, Desa Sulawesi Selatan, Pemerintahan Desa, Statistik Penduduk, Sejarah Desa, Peta Wilayah"
+    />
+    <meta name="author" content="Pemerintah Desa Taccimpo" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            animation: {
+              "fade-in-up": "fadeInUp 0.8s ease-out",
+              "fade-in-left": "fadeInLeft 0.8s ease-out",
+              "fade-in-right": "fadeInRight 0.8s ease-out",
+              "bounce-slow": "bounce 3s infinite",
+              marquee: "marquee 20s linear infinite",
+              "pulse-glow": "pulseGlow 2s ease-in-out infinite alternate",
+              float: "float 3s ease-in-out infinite",
+              gradient: "gradient 6s ease infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes marquee {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      @keyframes pulseGlow {
+        0% {
+          box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        100% {
+          box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes gradient {
+        0%,
+        100% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+      }
+
+      .hero-overlay {
+        background: linear-gradient(
+          135deg,
+          rgba(30, 58, 138, 0.8) 0%,
+          rgba(59, 130, 246, 0.6) 50%,
+          rgba(147, 197, 253, 0.4) 100%
+        );
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .gradient-bg {
+        background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c);
+        background-size: 400% 400%;
+        animation: gradient 6s ease infinite;
+      }
+
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .parallax {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      /* Intersection Observer styles */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Navbar styles - perbaikan utama */
+      .navbar-scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-scrolled a {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled button {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled svg {
+        color: #374151 !important;
+      }
+
+      .navbar-scrolled .mobile-menu {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans antialiased bg-gray-50">
+    <header
+      x-data="{ 
+        open: false, 
+        scrolled: false,
+        init() {
+          window.addEventListener('scroll', () => {
+            this.scrolled = window.scrollY > 50;
+          });
+        }
+      }"
+      :class="scrolled ? 'navbar-scrolled' : ''"
+      class="fixed top-0 w-full z-50 transition-all duration-300"
+    >
+      <div
+        class="max-w-7xl mx-auto flex items-center justify-between md:justify-center p-4"
+      >
+        <!-- Desktop nav -->
+        <nav class="space-x-6 hidden md:flex">
+          <a
+            href="index.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Beranda</a
+          >
+          <a
+            href="profil.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Profil Desa</a
+          >
+          <a
+            href="potensi.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Statistik dan Potensi</a
+          >
+          <a
+            href="kontak.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Kontak</a
+          >
+        </nav>
+
+        <!-- Hamburger button (mobile) -->
+        <button
+          @click="open = !open"
+          class="md:hidden flex items-center justify-center space-x-2 focus:outline-none absolute right-4 z-60"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white transition-colors duration-200"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              x-show="!open"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+            <path
+              x-show="open"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+          <span class="text-white font-medium">Menu</span>
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        x-show="open"
+        @click.outside="open = false"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 transform -translate-y-2"
+        x-transition:enter-end="opacity-100 transform translate-y-0"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 transform translate-y-0"
+        x-transition:leave-end="opacity-0 transform -translate-y-2"
+        class="absolute top-full left-0 w-full mobile-menu shadow-lg md:hidden"
+        :class="scrolled ? 'bg-white/95' : 'bg-black/20'"
+        style="backdrop-filter: blur(10px)"
+      >
+        <nav class="flex flex-col items-center space-y-4 p-6">
+          <a
+            href="index.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Beranda</a
+          >
+          <a
+            href="profil.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Profil Desa</a
+          >
+          <a
+            href="potensi.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Statistik dan Potensi</a
+          >
+          <a
+            href="kontak.html"
+            class="text-white hover:text-blue-300 transition-colors duration-200"
+            >Kontak</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen overflow-hidden">
+      <!-- Background -->
+      <div
+        class="absolute z-10 inset-0 parallax w-full h-full"
+        style="background-image: url('/images/kantor.jpeg')"
+      >
+        <div class="hero-overlay absolute inset-0"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div
+        class="relative z-20 flex flex-col items-center justify-center h-full text-white text-center px-4"
+      >
+        <!-- Logo -->
+        <div class="animate-float mb-6">
+          <div
+            class="w-150 h-150 bg-white rounded-full flex items-center justify-center shadow-2xl animate-pulse-glow"
+          >
+            <img src="/images/logo.png" alt="Logo Desa" class="h-25 w-20" />
+          </div>
+        </div>
+
+        <!-- Judul -->
+        <h1
+          class="text-6xl font-bold mb-4 text-shadow animate-fade-in-up"
+          style="animation-delay: 0.2s"
+        >
+          Desa Taccimpo
+        </h1>
+
+        <!-- Subtitle  -->
+        <div
+          class="glass-effect rounded-2xl px-8 py-4 mb-8 animate-fade-in-up"
+          style="animation-delay: 0.4s"
+        >
+          <p class="text-xl font-medium">
+            Kecamatan Duapitue, Kabupaten Sidenreng Rappang, Provinsi Sulawesi
+            Selatan
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="relative">
+      <!-- Sejarah -->
+      <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+          <!-- Section Header -->
+          <div class="text-center mb-16 fade-in">
+            <h2 class="text-5xl font-bold text-gray-800 mb-6">
+              Sejarah Lengkap Desa Taccimpo
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto rounded-full"
+            ></div>
+          </div>
+
+          <!-- Story Cards -->
+          <div class="grid lg:grid-cols gap-12">
+            <!-- Card 1 -->
+            <div
+              class="card-hover bg-white rounded-3xl shadow-xl p-8 max-w-4xl mx-auto fade-in hover:shadow-2xl transition-shadow duration-300"
+            >
+              <div class="text-gray-700 leading-relaxed">
+                <p class="mb-2">
+                  Pada tahun 1995, Desa Taccimpo masih merupakan bagian dari
+                  wilayah administratif Desa Bila, yang berada di Kecamatan Dua
+                  Pitue, Kabupaten Sidenreng Rappang. Saat itu, seluruh wilayah
+                  yang kini menjadi Desa Taccimpo belum memiliki pemerintahan
+                  desa sendiri, melainkan berada di bawah kepemimpinan Kepala
+                  Desa Bila. Kondisi ini berlangsung hingga pertengahan dekade
+                  1990-an, ketika pemerintah mulai melakukan penataan wilayah
+                  untuk meningkatkan efektivitas pelayanan kepada masyarakat.
+                </p>
+                <p class="mb-2">
+                  Pada masa sebelum pemekaran, Desa Bila dipimpin oleh H. P.
+                  Sade sebagai kepala desa. Wilayahnya cukup luas, mencakup
+                  beberapa dusun yang secara geografis dan sosial memiliki
+                  potensi untuk berkembang secara mandiri. Seiring dengan
+                  meningkatnya jumlah penduduk dan kompleksitas kebutuhan
+                  masyarakat, wacana untuk memekarkan Desa Bila menjadi beberapa
+                  desa mulai muncul. Hal ini dilakukan untuk mempermudah akses
+                  layanan pemerintahan, mempercepat pembangunan, dan memberikan
+                  kesempatan bagi wilayah yang memiliki karakteristik tersendiri
+                  untuk berkembang lebih optimal.
+                </p>
+                <p class="mb-2">
+                  Pemekaran wilayah tersebut akhirnya terealisasi pada tahun
+                  1996. Desa Bila resmi dimekarkan menjadi beberapa desa baru,
+                  salah satunya adalah Desa Taccimpo. Sejak saat itu, Desa
+                  Taccimpo berdiri sebagai entitas pemerintahan desa yang
+                  mandiri di bawah Kecamatan Dua Pitue, Kabupaten Sidenreng
+                  Rappang. Desa ini terdiri atas dua dusun, yaitu Dusun I
+                  Kampung Baru dan Dusun II Amessangeng. Pemekaran ini menjadi
+                  tonggak sejarah penting bagi masyarakat Taccimpo, karena untuk
+                  pertama kalinya mereka memiliki pemerintahan desa sendiri yang
+                  lebih dekat dan responsif terhadap kebutuhan warga.
+                </p>
+                <p>
+                  Kepemimpinan Desa Taccimpo pasca pemekaran dipercayakan kepada
+                  Kursam S., yang menjabat sebagai Kepala Desa sejak tahun 1996.
+                  Beliau memimpin desa ini hingga tahun 2007, melalui masa-masa
+                  awal pembentukan struktur pemerintahan, pengaturan
+                  administrasi, dan pembangunan infrastruktur dasar desa.
+                  Periode awal ini menjadi fondasi bagi perkembangan Desa
+                  Taccimpo di tahun-tahun berikutnya, dengan fokus pada penataan
+                  wilayah, pemberdayaan masyarakat, dan penguatan kelembagaan
+                  desa.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- pemimpin dan struktur  -->
+      <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="max-w-7xl mx-auto px-4">
+          <div class="text-center mb-16 fade-in">
+            <h2 class="text-5xl font-bold text-gray-800 mb-6">
+              Pemimpin Desa Taccimpo dan Struktur Organisasi
+            </h2>
+            <div
+              class="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-600 mx-auto rounded-full"
+            ></div>
+          </div>
+
+          <!-- Foto Kepala Desa -->
+          <div class="flex flex-col items-center mb-16 fade-in">
+            <img
+              src="images/kades.jpeg"
+              alt="Foto Kepala Desa Taccimpo"
+              class="w-56 h-72 object-cover rounded-2xl shadow-lg border-4 border-purple-200 mb-6"
+            />
+            <h3 class="text-2xl font-bold text-gray-800">EDI, S.I.P.</h3>
+            <p class="text-lg text-gray-600">
+              Kepala Desa Taccimpo (2019 – Sekarang)
+            </p>
+          </div>
+
+          <!-- Struktur Organisasi -->
+          <div class="flex justify-center mb-20 fade-in">
+            <img
+              src="images/struktur.jpg"
+              alt="Struktur Organisasi Desa Taccimpo"
+              class="rounded-2xl shadow-xl border-4 border-blue-200"
+            />
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-12">
+            <!-- Kepala Desa -->
+            <div class="card-hover bg-white rounded-3xl shadow-2xl p-8 fade-in">
+              <div class="text-center mb-8">
+                <div
+                  class="inline-flex items-center justify-center w-16 h-16 bg-purple-500 rounded-full mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">
+                  Kepala Desa
+                </h3>
+                <p class="text-gray-600">Periode 1966 – Sekarang</p>
+              </div>
+
+              <div class="overflow-hidden rounded-2xl border border-gray-200">
+                <table class="w-full">
+                  <thead
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                  >
+                    <tr>
+                      <th class="px-6 py-4 text-left font-bold">No.</th>
+                      <th class="px-6 py-4 text-left font-bold">Kepala Desa</th>
+                      <th class="px-6 py-4 text-left font-bold">Periode</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">1</td>
+                      <td class="px-6 py-4 text-gray-700">KURSAM S</td>
+                      <td class="px-6 py-4 text-gray-700">1966 – 1998</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">2</td>
+                      <td class="px-6 py-4 text-gray-700">KURSAM S</td>
+                      <td class="px-6 py-4 text-gray-700">1998 – 2006</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">3</td>
+                      <td class="px-6 py-4 text-gray-700">JUSMAN</td>
+                      <td class="px-6 py-4 text-gray-700">2006 – 2008</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">4</td>
+                      <td class="px-6 py-4 text-gray-700">MUSTARI</td>
+                      <td class="px-6 py-4 text-gray-700">2008 – 2014</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">5</td>
+                      <td class="px-6 py-4 text-gray-700">JUSMAN</td>
+                      <td class="px-6 py-4 text-gray-700">2014</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">6</td>
+                      <td class="px-6 py-4 text-gray-700">MUSTARI</td>
+                      <td class="px-6 py-4 text-gray-700">2014 – 2019</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">7</td>
+                      <td class="px-6 py-4 text-gray-700">EDI, S.I.P.</td>
+                      <td class="px-6 py-4 text-gray-700">2019 – Sekarang</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- BPD -->
+            <div class="card-hover bg-white rounded-3xl shadow-2xl p-8 fade-in">
+              <div class="text-center mb-8">
+                <div
+                  class="inline-flex items-center justify-center w-16 h-16 bg-purple-500 rounded-full mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">BPD</h3>
+                <p class="text-gray-600">Periode Sekarang</p>
+              </div>
+
+              <div class="overflow-hidden rounded-2xl border border-gray-200">
+                <table class="w-full">
+                  <thead
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                  >
+                    <tr>
+                      <th class="px-6 py-4 text-left font-bold">No.</th>
+                      <th class="px-6 py-4 text-left font-bold">Nama</th>
+                      <th class="px-6 py-4 text-left font-bold">Jabatan</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">1</td>
+                      <td class="px-6 py-4 text-gray-700">AMIR LATIF</td>
+                      <td class="px-6 py-4 text-gray-700">Ketua</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">2</td>
+                      <td class="px-6 py-4 text-gray-700">USMAN ARAFAH</td>
+                      <td class="px-6 py-4 text-gray-700">Wakil Ketua</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">3</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        RIJALUL QADRI RAMDAN
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Sekretaris</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">4</td>
+                      <td class="px-6 py-4 text-gray-700">MUHAMMAD YUNUS</td>
+                      <td class="px-6 py-4 text-gray-700">Anggota</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">5</td>
+                      <td class="px-6 py-4 text-gray-700">DARMAWATI</td>
+                      <td class="px-6 py-4 text-gray-700">Anggota</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PKK -->
+            <div
+              class="card-hover bg-white rounded-3xl shadow-2xl p-8 items-center fade-in lg:col-span-2 mx-auto w-full max-w-3xl"
+            >
+              <div class="text-center mb-8">
+                <div
+                  class="inline-flex items-center justify-center w-16 h-16 bg-purple-500 rounded-full mb-4"
+                >
+                  <svg
+                    class="w-8 h-8 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800 mb-2">PKK</h3>
+                <p class="text-gray-600">Periode Sekarang</p>
+              </div>
+
+              <div class="overflow-hidden rounded-2xl border border-gray-200">
+                <table class="w-full">
+                  <thead
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                  >
+                    <tr>
+                      <th class="px-6 py-4 text-left font-bold">No.</th>
+                      <th class="px-6 py-4 text-left font-bold">Nama</th>
+                      <th class="px-6 py-4 text-left font-bold">Jabatan</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200">
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">1</td>
+                      <td class="px-6 py-4 text-gray-700">EDI, S.I.P.</td>
+                      <td class="px-6 py-4 text-gray-700">Pembina TP PKK</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">2</td>
+                      <td class="px-6 py-4 text-gray-700">NY. FATIMAH EDI</td>
+                      <td class="px-6 py-4 text-gray-700">Ketua TP PKK</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">3</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        NY. HJ SYAMSIDAR YUNUS
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">
+                        Wakil Ketua TP PKK
+                      </td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">4</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        NY. MULIANA M. A.md.keb.
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Sekretaris</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">5</td>
+                      <td class="px-6 py-4 text-gray-700">IQBAL</td>
+                      <td class="px-6 py-4 text-gray-700">Sekretaris</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">6</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        NY. SITTI KAMARIAH
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Sekretaris</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">7</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        NY. EKA SYAMSUDDIN DARMAWANSA
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Bendahara</td>
+                    </tr>
+                    <tr
+                      class="hover:bg-purple-50 transition-colors duration-200"
+                    >
+                      <td class="px-6 py-4 font-medium text-gray-900">8</td>
+                      <td class="px-6 py-4 text-gray-700">
+                        NY. HJ. AMIRAWATI JUSMAN
+                      </td>
+                      <td class="px-6 py-4 text-gray-700">Bendahara</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-gradient-to-br from-green-50 to-blue-50">
+        <div class="max-w-7xl mx-auto px-4 fade-in">
+          <h2 class="text-4xl font-bold text-gray-800 text-center mb-10">
+            Realisasi APBDES 2025 Desa Taccimpo
+          </h2>
+          <div class="overflow-x-auto bg-white shadow-lg rounded-2xl">
+            <table
+              class="min-w-full text-sm text-left text-gray-700 border-collapse fade-in"
+            >
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-6 py-3">Uraian</th>
+                  <th class="px-6 py-3">Anggaran</th>
+                  <th class="px-6 py-3">Realisasi</th>
+                  <th class="px-6 py-3">Lebih/Kurang</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b bg-blue-100">
+                  <td class="px-6 py-4">Belanja Pegawai</td>
+                  <td class="px-6 py-4">Rp. 488.297.060</td>
+                  <td class="px-6 py-4">Rp. 470.237.086</td>
+                  <td class="px-6 py-4">Rp. 18.059.974</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Penghasilan tetap dan tunjangan kepala desa
+                  </td>
+                  <td class="px-6 py-4">Rp. 81.800.000</td>
+                  <td class="px-6 py-4">Rp. 81.698.000</td>
+                  <td class="px-6 py-4">Rp. 102.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Penghasilan tetap dan tunjangan perangkat desa
+                  </td>
+                  <td class="px-6 py-4">Rp. 329.800.000</td>
+                  <td class="px-6 py-4">Rp. 329.326.086</td>
+                  <td class="px-6 py-4">Rp. 473.914</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Jaminan sosial kepala desa dan perangkat desa
+                  </td>
+                  <td class="px-6 py-4">Rp. 19.752.060</td>
+                  <td class="px-6 py-4">Rp. 2.268.000</td>
+                  <td class="px-6 py-4">Rp. 17.484.060</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Tunjangan BPD</td>
+                  <td class="px-6 py-4">Rp. 56.945.000</td>
+                  <td class="px-6 py-4">Rp. 56.945.000</td>
+                  <td class="px-6 py-4">-</td>
+                </tr>
+                <tr class="border-b bg-blue-100">
+                  <td class="px-6 py-4">Belanja Barang dan Jasa</td>
+                  <td class="px-6 py-4">Rp. 488.337.140</td>
+                  <td class="px-6 py-4">Rp. 282.639.200</td>
+                  <td class="px-6 py-4">Rp. 205.697.940</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Belanja barang perlengkapan</td>
+                  <td class="px-6 py-4">Rp. 102.346.000</td>
+                  <td class="px-6 py-4">Rp. 79.919.000</td>
+                  <td class="px-6 py-4">Rp. 22.427.940</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Belanja jasa honorarium</td>
+                  <td class="px-6 py-4">Rp. 142.391.200</td>
+                  <td class="px-6 py-4">Rp. 124.691.200</td>
+                  <td class="px-6 py-4">Rp. 17.700.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Belanja perjalanan dinas</td>
+                  <td class="px-6 py-4">Rp. 137.300.000</td>
+                  <td class="px-6 py-4">Rp. 47.880.000</td>
+                  <td class="px-6 py-4">Rp. 89.420.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Belanja operasional perkantoran</td>
+                  <td class="px-6 py-4">Rp. 14.466.000</td>
+                  <td class="px-6 py-4">Rp. 11.349.000</td>
+                  <td class="px-6 py-4">Rp. 3.117.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Belanja pemeliharaan</td>
+                  <td class="px-6 py-4">Rp. 4.109.576</td>
+                  <td class="px-6 py-4">Rp. 800.000</td>
+                  <td class="px-6 py-4">Rp. 3.309.576</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Belanja barang dan jasa yang diserahkan
+                  </td>
+                  <td class="px-6 py-4">Rp. 87.724.364</td>
+                  <td class="px-6 py-4">Rp. 18.000.000</td>
+                  <td class="px-6 py-4">Rp. 69.724.364</td>
+                </tr>
+                <tr class="border-b bg-blue-100">
+                  <td class="px-6 py-4">Belanja Modal</td>
+                  <td class="px-6 py-4">Rp. 1.197.043.544</td>
+                  <td class="px-6 py-4">Rp. 832.255.625</td>
+                  <td class="px-6 py-4">Rp. 364.787.919</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Modal pengadaan tanah</td>
+                  <td class="px-6 py-4">Rp. 95.000.000</td>
+                  <td class="px-6 py-4">-</td>
+                  <td class="px-6 py-4">Rp. 95.000.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Modal pengadaan peralatan, mesin dan AI
+                  </td>
+                  <td class="px-6 py-4">Rp. 43.787.525</td>
+                  <td class="px-6 py-4">Rp. 25.500.000</td>
+                  <td class="px-6 py-4">Rp. 18.287.525</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Modal kendaraan</td>
+                  <td class="px-6 py-4">Rp. 382.762.727</td>
+                  <td class="px-6 py-4">Rp. 306.950.000</td>
+                  <td class="px-6 py-4">Rp. 75.812.727</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Modal gedung, bangunan dan taman</td>
+                  <td class="px-6 py-4">Rp. 32.000.000</td>
+                  <td class="px-6 py-4">Rp. 5.000.000</td>
+                  <td class="px-6 py-4">Rp. 27.000.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Modal jalan/prasarana jalan</td>
+                  <td class="px-6 py-4">Rp. 373.334.667</td>
+                  <td class="px-6 py-4">Rp. 255.818.000</td>
+                  <td class="px-6 py-4">Rp. 147.516.667</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">
+                    Modal irigasi/embung/drainase/air limbah
+                  </td>
+                  <td class="px-6 py-4">Rp. 270.158.625</td>
+                  <td class="px-6 py-4">Rp. 268.987.625</td>
+                  <td class="px-6 py-4">Rp. 1.171.000</td>
+                </tr>
+                <tr class="border-b bg-blue-100">
+                  <td class="px-6 py-4">Belanja Tidak Terduga</td>
+                  <td class="px-6 py-4">Rp. 220.618.275</td>
+                  <td class="px-6 py-4">Rp. 201.600.000</td>
+                  <td class="px-6 py-4">Rp. 19.018.275</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="overflow-x-auto bg-white shadow-lg rounded-2xl mt-10">
+            <table
+              class="min-w-full text-sm text-left text-gray-700 border-collapse fade-in"
+            >
+              <thead class="bg-blue-600 text-white">
+                <tr>
+                  <th class="px-6 py-3">Uraian</th>
+                  <th class="px-6 py-3">Anggaran</th>
+                  <th class="px-6 py-3">Realisasi</th>
+                  <th class="px-6 py-3">Lebih/Kurang</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Surplus/Defisit Pembiayaan</td>
+                  <td class="px-6 py-4">Rp. 349.316.928</td>
+                  <td class="px-6 py-4">Rp. 79.084.886</td>
+                  <td class="px-6 py-4">Rp. 428.401.814</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Penerimaan Pembiayaan</td>
+                  <td class="px-6 py-4"></td>
+                  <td class="px-6 py-4"></td>
+                  <td class="px-6 py-4"></td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">SILPA Tahun Sebelumnya</td>
+                  <td class="px-6 py-4">Rp. 379.316.928</td>
+                  <td class="px-6 py-4">Rp. 379.316.928</td>
+                  <td class="px-6 py-4">-</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Pengeluaran Pembiayaan</td>
+                  <td class="px-6 py-4">Rp. 379.316.928</td>
+                  <td class="px-6 py-4">Rp. 379.316.928</td>
+                  <td class="px-6 py-4">-</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Penyertaan Modal Desa</td>
+                  <td class="px-6 py-4">Rp. 30.000.000</td>
+                  <td class="px-6 py-4">-</td>
+                  <td class="px-6 py-4">Rp. 30.000.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Pembiayaan Netto</td>
+                  <td class="px-6 py-4">Rp. 30.000.000</td>
+                  <td class="px-6 py-4">-</td>
+                  <td class="px-6 py-4">Rp. 30.000.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Sisa Lebih Pembiayaan</td>
+                  <td class="px-6 py-4">Rp. 349.316.928</td>
+                  <td class="px-6 py-4">Rp. 379.316.928</td>
+                  <td class="px-6 py-4">Rp. 30.000.000</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="px-6 py-4">Anggaran</td>
+                  <td class="px-6 py-4">-</td>
+                  <td class="px-6 py-4">Rp. 458.401.814</td>
+                  <td class="px-6 py-4">Rp. 458.401.814</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <p>&copy; 2025 Desa Taccimpo. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Intersection Observer Script -->
+    <script>
+      // Intersection Observer untuk animasi fade-in
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      // Observe semua elemen dengan class fade-in
+      document.addEventListener("DOMContentLoaded", () => {
+        const fadeElements = document.querySelectorAll(".fade-in");
+        fadeElements.forEach((el) => observer.observe(el));
+      });
+
+      // Smooth scroll untuk internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
